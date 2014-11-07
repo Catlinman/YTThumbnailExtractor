@@ -13,13 +13,15 @@ function validateYTURL(url) {
 
 function getVideoId(url) {
 	var id = url.split(/=|&/)[1];
-	document.getElementById("idoutput").innerHTML = "Output: " +id;
+	document.getElementById("statusmessage").innerHTML = "Output: " + id;
 	return id;
 }
 
 function buildThumbnailPage(id) {
-	var maxresURL = "http://img.youtube.com/vi/" +id +"/maxresdefault.jpg";
-	chrome.tabs.create({url:maxresURL});
+	var maxresURL = "http://img.youtube.com/vi/" + id + "/maxresdefault.jpg";
+	chrome.tabs.create({
+		url: maxresURL
+	});
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -28,7 +30,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	document.getElementById("urlbutton").addEventListener("click", function() {
-
+		var url = "";
+		if(document.getElementById("custominput").value) {
+			url = document.getElementById("custominput").value
+			if(validateYTURL(url)) {
+				buildThumbnailPage(getVideoId(url));
+			} else {
+				document.getElementById("statusmessage").style.color = "Red";
+				document.getElementById("statusmessage").innerHTML = "Invalid URL";
+			}
+		} else {
+			document.getElementById("statusmessage").style.color = "Red";
+			document.getElementById("statusmessage").innerHTML = "Enter a URL first";
+		}
 	});
 
 	chrome.tabs.query({
