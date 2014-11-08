@@ -10,10 +10,15 @@ function createImage(url, alt) {
 
 	img.onload = function() {
 		if(img.width != 120 && img.height != 90) {
+			var width = Math.min(window.innerWidth * 0.9, img.width);
+			var height = Math.min(window.innerHeight * 0.9, img.height);
+
+			img.style.width = width + "px";
+			img.style.height = height + "px";
 			img.alt = alt || "Thumbnail";
 
-			div.style.width = img.width + "px";
-			div.style.height = (img.height + 24) + "px";
+			div.style.width = width + "px";
+			div.style.height = height + "px";
 
 			div.appendChild(img);
 			div.appendChild(label);
