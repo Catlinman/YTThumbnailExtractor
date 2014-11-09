@@ -1,9 +1,6 @@
-function createImage(url, alt) {
+function createImage(url, description) {
 	var div = document.createElement("div");
 	div.className = "image-container"
-
-	var label = document.createElement("p")
-	label.innerHTML = alt;
 
 	var img = new Image();
 	img.src = url;
@@ -13,14 +10,22 @@ function createImage(url, alt) {
 			var width = Math.min(window.innerWidth * 0.9, img.width);
 			var height = Math.min(window.innerHeight * 0.9, img.height);
 
+			var label = document.createElement("p")
+			label.innerHTML = description;
+
+			var a = document.createElement('a');
+			a.title = description;
+			a.href = img.src;
+
 			img.style.width = width + "px";
 			img.style.height = height + "px";
-			img.alt = alt || "Thumbnail";
+			img.alt = description || "Thumbnail";
 
 			div.style.width = width + "px";
 			div.style.height = height + "px";
 
-			div.appendChild(img);
+			a.appendChild(img);
+			div.appendChild(a);
 			div.appendChild(label);
 			document.getElementById("view-wrapper").appendChild(div);
 		}
