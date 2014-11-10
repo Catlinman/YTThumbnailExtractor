@@ -43,5 +43,5 @@ document.addEventListener('DOMContentLoaded', function() {
 	createImage(sdresURL, "Standard resolution thumbnail")
 
 	var default0URL = "http://img.youtube.com/vi/" + bg.id + "/0.jpg";
-	createImage(default0URL, "Default maximum resolution thumbnail")
+	createImage(default0URL, "Default thumbnail")
 });
