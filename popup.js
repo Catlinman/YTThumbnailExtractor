@@ -1,3 +1,4 @@
+
 var tabURL; // Stores the current tab that was opened before clicking on the extension
 var youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
 
@@ -16,6 +17,7 @@ function validateYTURL(url) {
 function getVideoId(url) {
 	var id = url.split(/=|&/)[1];
 	document.getElementById("statusmessage").innerHTML = "Output: " + id;
+
 	return id;
 }
 
@@ -37,16 +39,20 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Listener for the form confirmation button
 	document.getElementById("urlbutton").addEventListener("click", function() {
 		var url = "";
+
 		if(document.getElementById("custominput").value) {
 			url = document.getElementById("custominput").value
+
 			if(validateYTURL(url)) {
 				var bg = chrome.extension.getBackgroundPage();
 				bg.id = getVideoId(url);
 				buildThumbnailPage();
+
 			} else {
 				document.getElementById("statusmessage").style.color = "Red";
 				document.getElementById("statusmessage").innerHTML = "Invalid URL";
 			}
+
 		} else {
 			document.getElementById("statusmessage").style.color = "Red";
 			document.getElementById("statusmessage").innerHTML = "Enter a URL first";
@@ -65,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			// Checks if the tab was a YouTube watch page and if so enables the local fetch button
 			if(validateYTURL(tabURL)) {
 				document.getElementById('localbutton').disabled = false;
+
 			} else {
 				document.getElementById('localbutton').disabled = true;
 			}

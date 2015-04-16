@@ -1,3 +1,4 @@
+
 function createImage(url, description) {
 	var div = document.createElement("div");
 	div.className = "image-container"
